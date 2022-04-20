@@ -10,36 +10,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/journal")
+@Controller
 public class ControllerJournal {
     public static Logger logger = LoggerFactory.getLogger(ControllerJournal.class);
     @Autowired
     JournalRepository journalRepository;
 
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ResponseEntity<List<Journal>> listAllBook(){
-        List<Journal> journals = journalRepository.findAll();
 
-        if (journals.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<List<Journal>>(journals,HttpStatus.OK);
+    @GetMapping("/journallist")
+    public String journalList(Model model) {
+        // Trả về đối tượng todoList.
+        model.addAttribute("journallist", journalRepository.findAll());
+        // Trả về template "listTodo.html"
+        return "index";
     }
-    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
-    public Journal findContact(@PathVariable("id") long id) {
-        Journal journal= journalRepository.getOne(id);
-        if(journal == null) {
-            ResponseEntity.notFound().build();
-        }
-        return journal;
+    @GetMapping("addjournal")
+    public String addJournal(Model model) {
+        model.addAttribute("journal", new Journal());
+        return "addjournal";
     }
 }

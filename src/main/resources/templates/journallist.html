@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Book List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Journal List</h1>
+<a href="addjournal">Add Journal</a>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Journal Id</th>
+            <th>Release Number</th>
+            <th>Release Month</th>
+            <th>Number Of Release</th>
+        </tr>
+        <tr th:each ="journal : ${journallist}">
+            <td th:utext="${journal.journalId}">...</td>
+            <td th:utext="${journal.releaseNumber}">...</td>
+            <td th:utext="${journal.releaseMonth}">...</td>
+            <td th:utext="${journal.numberOfRelease}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

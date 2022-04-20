@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Book List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Newspaper List</h1>
+<a href="addnewspaper">Add Newspaper</a>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Newspaper Id</th>
+            <th>Release Day</th>
+            <th>Number Of Release</th>
+        </tr>
+        <tr th:each ="newspaper : ${newspaperlist}">
+            <td th:utext="${newspaper.newsPaperId}">...</td>
+            <td th:utext="${newspaper.releaseDay}">...</td>
+            <td th:utext="${newspaper.numberOfRelease}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

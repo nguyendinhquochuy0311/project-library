@@ -1,9 +1,72 @@
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8"/>
     <title>Spring Boot</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body  style="background-color:pink;">
-<h1 style="color:white;">Hello Sarah</h1>
+<body>
 
+
+<h2 th:utext="${message}">..!..</h2>
+<a th:href="@{/booklist}">Book List</a>
+<a th:href="@{/journallist}">Journal List</a>
+<a th:href="@{/newspaperlist}">Newspaper List</a>
+<div>
+    <table border="1">
+        <div th:if= "${booklist != null}">
+            <tr>
+                <th>Book Id</th>
+                <th>Writer</th>
+                <th>Book Name</th>
+                <th>Number Of Pages</th>
+                <th>Number Of Release</th>
+            </tr>
+            <tr th:each="book : ${booklist}">
+                <td th:utext="${book.bookId}">...</td>
+                <td th:utext="${book.writer}">...</td>
+                <td th:utext="${book.bookName}">...</td>
+                <td th:utext="${book.numberOfPages}">...</td>
+                <td th:utext="${book.numberOfRelease}">...</td>
+            </tr>
+        </div>
+    </table>
+</div>
+<div>
+    <table border="1">
+        <div  th:if= "${newspaperlist != null}">
+        <tr>
+            <th>Newspaper Id</th>
+            <th>Release Day</th>
+            <th>Number Of Release</th>
+        </tr>
+        <tr th:each ="newspaper : ${newspaperlist}">
+            <td th:utext="${newspaper.newsPaperId}">...</td>
+            <td th:utext="${newspaper.releaseDay}">...</td>
+            <td th:utext="${newspaper.numberOfRelease}">...</td>
+        </tr>
+        </div>
+    </table>
+</div>
+<div>
+    <table border="1">
+        <div  th:if= "${journallist != null}">
+        <tr>
+            <th>Journal Id</th>
+            <th>Release Number</th>
+            <th>Release Month</th>
+            <th>Number Of Release</th>
+        </tr>
+        <tr th:each ="journal : ${journallist}">
+            <td th:utext="${journal.journalId}">...</td>
+            <td th:utext="${journal.releaseNumber}">...</td>
+            <td th:utext="${journal.releaseMonth}">...</td>
+            <td th:utext="${journal.numberOfRelease}">...</td>
+        </tr>
+        </div>
+    </table>
+</div>
 </body>
 </html>
