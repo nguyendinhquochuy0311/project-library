@@ -33,10 +33,17 @@ public class ControllerBook {
         return "index";
     }
 
-    @RequestMapping(value = "findbybookname/{bookName}", method = RequestMethod.GET)
-    public ResponseEntity<List<Book>> findByBookName(@PathVariable(name = "bookName") String bookName) {
-        return new ResponseEntity<>(bookRepository.findByBookName(bookName), HttpStatus.OK);
-    }
+//    @GetMapping("/findbybookname")
+//    public String findByBookName(@PathVariable(name = "bookname") String bookName, Model theModel) {
+//        List<Book> books = bookRepository.findPerson(bookName);
+//        theModel.addAttribute("books", books);
+//        return "index";
+//    }
+
+//    @RequestMapping(value = "findbybookname/{bookName}", method = RequestMethod.GET)
+//    public ResponseEntity<List<Book>> findByBookName(@PathVariable(name = "bookName") String bookName) {
+//        return new ResponseEntity<>(bookRepository.findByBookName(bookName), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "findbywriter/{writer}", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getByWriter(@PathVariable(name = "writer") String writer) {
