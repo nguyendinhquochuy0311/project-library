@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
 <h2 th:utext="${message}">..!..</h2>
 <a th:href="@{/booklist}">Book List</a>
 <a th:href="@{/journallist}">Journal List</a>
@@ -18,8 +17,12 @@
 <div>
     <table border="1">
         <div th:if= "${booklist != null}">
+            <form th:action="@{/findbybookname}" th:object="${books}" method="post">
+                <input type="text"  th:values="${books}" placeholder="Search book" />
+                <input type="submit" value="Search" />
+            </form>
             <tr>
-                <th>Book Id</th>
+                <th>Book Id</th></th>
                 <th>Writer</th>
                 <th>Book Name</th>
                 <th>Number Of Pages</th>
@@ -35,6 +38,7 @@
         </div>
     </table>
 </div>
+
 <div>
     <table border="1">
         <div  th:if= "${newspaperlist != null}">
@@ -51,6 +55,7 @@
         </div>
     </table>
 </div>
+
 <div>
     <table border="1">
         <div  th:if= "${journallist != null}">
@@ -70,9 +75,5 @@
     </table>
 </div>
 
-<form th:action="@{/findbybookname}" method="GET">
-    <input type="text"  th:value="${books}" placeholder="Search book" />
-    <input type="submit" value="Search" />
-</form>
 </body>
 </html>

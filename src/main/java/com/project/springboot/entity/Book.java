@@ -13,7 +13,7 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "book_id")
     private String bookId;
@@ -42,11 +42,11 @@ public class Book implements Serializable {
         this.bookName = bookName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
