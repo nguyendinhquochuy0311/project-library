@@ -28,8 +28,12 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void deleteBook(Book book){
-        bookRepository.delete(book);
-    }
 
+    public void delete(long id) {
+
+        bookRepository.deleteById(id);
+    }
+    public Book get(long id) {
+        return bookRepository.findById(id).get();
+    }
 }

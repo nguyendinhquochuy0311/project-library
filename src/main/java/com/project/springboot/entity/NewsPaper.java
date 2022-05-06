@@ -6,26 +6,25 @@ import java.sql.Date;
 @Entity
 @Table(name ="newspaper")
 public class NewsPaper {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private Long id;
 
     @Column(name="newspaper_id")
     private String newsPaperId;
 
     @Column(name ="release_day")
-    private Date releaseDay;
+    private int releaseDay;
 
     @Column(name="number_of_release")
     private int numberOfRelease;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,11 +36,11 @@ public class NewsPaper {
         this.newsPaperId = newsPaperId;
     }
 
-    public Date getReleaseDay() {
+    public int getReleaseDay() {
         return releaseDay;
     }
 
-    public void setReleaseDay(Date releaseDay) {
+    public void setReleaseDay(int releaseDay) {
         this.releaseDay = releaseDay;
     }
 

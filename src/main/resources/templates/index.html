@@ -20,19 +20,27 @@
                 <input type="text" placeholder="Search book" />
                 <input type="submit" value="Search" />
             </form>
+            <a th:href="@{/addbook}">Add Book</a>
             <tr>
-                <th>Book Id</th></th>
+                <th>Id</th>
+                <th>Book Id</th>
                 <th>Writer</th>
                 <th>Book Name</th>
                 <th>Number Of Pages</th>
                 <th>Number Of Release</th>
             </tr>
             <tr th:each="book : ${booklist}">
+                <td th:utext="${book.id}">...</td>
                 <td th:utext="${book.bookId}">...</td>
                 <td th:utext="${book.writer}">...</td>
                 <td th:utext="${book.bookName}">...</td>
                 <td th:utext="${book.numberOfPages}">...</td>
                 <td th:utext="${book.numberOfRelease}">...</td>
+                <td>
+                    <a th:href="@{'/editbook/'+${book.id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/deletebook/'+${book.id}}">Delete</a>
+                </td>
             </tr>
         </div>
     </table>
@@ -42,14 +50,22 @@
     <table border="1">
         <div  th:if= "${newspaperlist != null}">
         <tr>
+            <th>Id</th>
             <th>Newspaper Id</th>
             <th>Release Day</th>
             <th>Number Of Release</th>
         </tr>
+            <a th:href="@{/addnewspaper}">Add Newspaper</a>
         <tr th:each ="newspaper : ${newspaperlist}">
+            <td th:utext="${newspaper.id}">...</td>
             <td th:utext="${newspaper.newsPaperId}">...</td>
             <td th:utext="${newspaper.releaseDay}">...</td>
             <td th:utext="${newspaper.numberOfRelease}">...</td>
+            <td>
+                <a th:href="@{'/editnewspaper/'+${newspaper.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{'/deletenewspaper/'+${newspaper.id}}">Delete</a>
+            </td>
         </tr>
         </div>
     </table>
@@ -59,16 +75,24 @@
     <table border="1">
         <div  th:if= "${journallist != null}">
         <tr>
+            <th>Id</th>
             <th>Journal Id</th>
             <th>Release Number</th>
             <th>Release Month</th>
             <th>Number Of Release</th>
         </tr>
+            <a th:href="@{/addjournal}">Add Journal</a>
         <tr th:each ="journal : ${journallist}">
+            <td th:utext="${journal.id}">...</td>
             <td th:utext="${journal.journalId}">...</td>
             <td th:utext="${journal.releaseNumber}">...</td>
             <td th:utext="${journal.releaseMonth}">...</td>
             <td th:utext="${journal.numberOfRelease}">...</td>
+            <td>
+                <a th:href="@{'/editjournal/'+${journal.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{'/deletejournal/'+${journal.id}}">Delete</a>
+            </td>
         </tr>
         </div>
     </table>

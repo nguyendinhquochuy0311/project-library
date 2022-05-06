@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,24 +57,31 @@ public class ControllerBook {
 
     @RequestMapping("/addbook")
     public String addBook(Model model) {
-        model.addAttribute("book", new Book());
+        Book book = new Book();
+        model.addAttribute("book", book);
         return "addbook";
     }
 
-    @PostMapping("/saveEmployee")
-    public String saveEmployee(@ModelAttribute("employee") Book book) {
-        // save employee to database
+    @RequestMapping(value = "/savebook",method = RequestMethod.POST)
+    public String saveBook(@ModelAttribute("book") Book book){
         bookService.saveBook(book);
         return "redirect:/";
     }
 
-    @PutMapping("/updatebook")
-    public String updateBook(Model model) {
-        return "updatebook";
+    @RequestMapping("/editbook/{id}")
+    public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
+        ModelAndView mav = new ModelAndView("editbook");
+        Book book = bookService.get(id);
+        mav.addObject("book", book);
+
+        return mav;
     }
 
-    @DeleteMapping("/deletebook")
-    public String deleteBook(Model model) {
-        return "deletebook";
+
+
+    @RequestMapping("/deletebook/{id}")
+    public String deleteProduct(@PathVariable(name = "id") int id) {
+        bookService.delete(id);
+        return "redirect:/";
     }
 }

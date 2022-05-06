@@ -5,6 +5,7 @@ import com.project.springboot.JournalRepository;
 import com.project.springboot.entity.Book;
 import com.project.springboot.entity.Journal;
 import com.project.springboot.entity.NewsPaper;
+import com.project.springboot.service.JournalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -22,7 +24,8 @@ public class ControllerJournal {
     @Autowired
     JournalRepository journalRepository;
 
-
+    @Autowired
+    JournalService journalService;
 
     @GetMapping("/journallist")
     public String journalList(Model model) {
@@ -32,19 +35,34 @@ public class ControllerJournal {
         return "index";
     }
 
-    @PostMapping ("/addjournal")
+    @RequestMapping("/addjournal")
     public String addJournal(Model model) {
-        model.addAttribute("journal", new Journal());
+        Journal journal = new Journal();
+
+        model.addAttribute("journal", journal);
         return "addjournal";
     }
 
-    @PutMapping("/updatejournal")
-    public String updateJournal(Model model){
-        return "updatejournal";
+    @RequestMapping(value = "/savejournal", method = RequestMethod.POST)
+    public String saveJournal(@ModelAttribute("journal") Journal journal) {
+        journalService.saveJournal(journal);
+        return "redirect:/";
     }
 
-    @DeleteMapping("/deletejournal")
-    public String deleteJournal(Model model){
-        return "deletejournal";
+    @RequestMapping("/editjournal/{id}")
+    public ModelAndView editJournal(@PathVariable(name = "id") int id) {
+        ModelAndView mav = new ModelAndView("editjournal");
+        Journal journal = journalService.get(id);
+        mav.addObject("journal", journal);
+
+        return mav;
     }
+
+    @RequestMapping("/deletejournal/{id}")
+    public String deleteJournal(@PathVariable(name = "id") int id) {
+        journalService.delete(id);
+        return "redirect:/";
+    }
+
+
 }

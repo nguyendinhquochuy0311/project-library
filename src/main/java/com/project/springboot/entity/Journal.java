@@ -1,15 +1,16 @@
 package com.project.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name ="journal")
 public class Journal {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
-    private int id;
+    private Long id;
 
     @Column(name ="journal_id")
     private String journalId;
@@ -23,11 +24,11 @@ public class Journal {
     @Column(name ="number_of_release")
     private int numberOfRelease;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -23,6 +23,11 @@
            <td th:text="${book.getBookName()}">...</td>
           <td th:text="${book.getNumberOfPages()}">...</td>
            <td th:text="${book.getNumberOfRelease()}">...</td>
+          <td>
+              <a th:href="/@{'/edit/' + ${book.id}}">Edit</a>
+              &nbsp;&nbsp;&nbsp;
+              <a th:href="/@{'/delete/' + ${book.id}}">Delete</a>
+          </td>
        </tr>
    </table>
 </div>

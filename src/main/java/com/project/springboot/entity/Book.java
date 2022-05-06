@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -33,7 +33,7 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public Book(long id, String bookId, String writer, int numberOfPages, int numberOfRelease, String bookName) {
+    public Book(Long id, String bookId, String writer, int numberOfPages, int numberOfRelease, String bookName) {
         this.id = id;
         this.bookId = bookId;
         this.writer = writer;

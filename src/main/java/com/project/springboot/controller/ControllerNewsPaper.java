@@ -6,6 +6,7 @@ import com.project.springboot.NewsPaperRepository;
 import com.project.springboot.entity.Book;
 import com.project.springboot.entity.Journal;
 import com.project.springboot.entity.NewsPaper;
+import com.project.springboot.service.NewspaperService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -24,6 +26,9 @@ public class ControllerNewsPaper {
     @Autowired
     NewsPaperRepository newsPaperRepository;
 
+    @Autowired
+    NewspaperService newspaperService;
+
     @GetMapping("/newspaperlist")
     public String newspaperList(Model model) {
         // Trả về đối tượng todoList.
@@ -32,20 +37,32 @@ public class ControllerNewsPaper {
         return "index";
     }
 
-    @PostMapping("/addnewspaper")
+    @RequestMapping("/addnewspaper")
     public String addNewspaper(Model model) {
-        model.addAttribute("newspaper", new NewsPaper());
+        NewsPaper newsPaper = new NewsPaper();
+        model.addAttribute("newspaper", newsPaper);
         return "addnewspaper";
     }
 
-    @PutMapping("/updatenewspaper")
-    public String updateNewspaper(Model model){
-        return "updateNewspaper";
+    @RequestMapping(value = "/savenewspaper", method = RequestMethod.POST)
+    public String saveNewspaper(@ModelAttribute("newspaper") NewsPaper newsPaper) {
+        newspaperService.saveNewspaper(newsPaper);
+        return "redirect:/";
     }
 
-    @DeleteMapping("/deletenewspaper")
-    public String deleteNewspaper(Model model){
-        return "deletenewspaper";
+    @RequestMapping("/editnewspaper/{id}")
+    public ModelAndView editNewspaper(@PathVariable(name = "id") int id) {
+        ModelAndView mav = new ModelAndView("editnewspaper");
+        NewsPaper newsPaper = newspaperService.get(id);
+        mav.addObject("newspaper", newsPaper);
+
+        return mav;
+    }
+
+    @RequestMapping("/deletenewspaper/{id}")
+    public String deleteNewspaper(@PathVariable(name = "id") int id) {
+        newspaperService.delete(id);
+        return "redirect:/";
     }
 
 }
