@@ -18,4 +18,18 @@ public class BookService {
         List<Book> bookList = bookRepository.findByBookName1(bookName);
         return new ArrayList<>(bookList);
     }
+
+    public List<Book> findWriter(String writer) {
+        List<Book> writers = bookRepository.findWriter(writer);
+        return new ArrayList<>(writers);
+    }
+
+    public void saveBook(Book book){
+        bookRepository.save(book);
+    }
+
+    public void deleteBook(Book book){
+        bookRepository.delete(book);
+    }
+
 }

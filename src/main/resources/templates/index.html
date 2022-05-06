@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<h2 th:utext="${message}">..!..</h2>
 <a th:href="@{/booklist}">Book List</a>
 <a th:href="@{/journallist}">Journal List</a>
 <a th:href="@{/newspaperlist}">Newspaper List</a>
@@ -17,8 +16,8 @@
 <div>
     <table border="1">
         <div th:if= "${booklist != null}">
-            <form th:action="@{/findbybookname}" th:object="${books}" method="post">
-                <input type="text"  th:values="${books}" placeholder="Search book" />
+            <form th:action="@{/findbybookname}"  method="post">
+                <input type="text" placeholder="Search book" />
                 <input type="submit" value="Search" />
             </form>
             <tr>

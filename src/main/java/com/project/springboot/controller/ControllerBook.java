@@ -6,15 +6,12 @@ import com.project.springboot.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ControllerBook {
@@ -46,21 +43,37 @@ public class ControllerBook {
     }
 
 
-//    @RequestMapping(value = "findbybookname/{bookName}", method = RequestMethod.GET)
-//    public String findByBookName(@PathVariable(name = "bookName") String bookName,Model model) {
-//       model.addAttribute("books",new ResponseEntity<>(bookRepository.findByBookName(bookName), HttpStatus.OK));
-//       return "findbybookname";
-//    }
-
-    @RequestMapping(value = "findbywriter/{writer}", method = RequestMethod.GET)
-    public ResponseEntity<List<Book>> getByWriter(@PathVariable(name = "writer") String writer) {
-        return new ResponseEntity<>(bookRepository.findByWriter(writer), HttpStatus.OK);
+    @RequestMapping(value = "/findwriter", method = RequestMethod.POST)
+    public String getByWriter(@RequestBody String writer, Model model) {
+        List<Book> writerList = new ArrayList<>();
+        if (writer != null && !writer.isEmpty()) {
+            writerList = bookService.findWriter(writer);
+        }
+        model.addAttribute("writer", writerList);
+        return "findwriter";
     }
 
 
-    @GetMapping("addbook")
+    @RequestMapping("/addbook")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
         return "addbook";
+    }
+
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute("employee") Book book) {
+        // save employee to database
+        bookService.saveBook(book);
+        return "redirect:/";
+    }
+
+    @PutMapping("/updatebook")
+    public String updateBook(Model model) {
+        return "updatebook";
+    }
+
+    @DeleteMapping("/deletebook")
+    public String deleteBook(Model model) {
+        return "deletebook";
     }
 }

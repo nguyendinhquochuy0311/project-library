@@ -9,7 +9,7 @@
 <h1>Book </h1>
 <br/><br/>
 <div>
-   <table border="1">
+   <table>
        <tr>
            <th>Book Id</th>
           <th>Writer</th>
@@ -18,11 +18,11 @@
            <th>Number Of Release</th>
        </tr>
       <tr th:each="book : ${books}">
-           <td th:utext="${book.bookId}">...</td>
-           <td th:utext="${book.writer}">...</td>
-           <td th:utext="${book.bookName}">...</td>
-          <td th:utext="${book.numberOfPages}">...</td>
-           <td th:utext="${book.numberOfRelease}">...</td>
+           <td th:text="${book.getBookId()}">...</td>
+           <td th:text="${book.getWriter()}">...</td>
+           <td th:text="${book.getBookName()}">...</td>
+          <td th:text="${book.getNumberOfPages()}">...</td>
+           <td th:text="${book.getNumberOfRelease()}">...</td>
        </tr>
    </table>
 </div>

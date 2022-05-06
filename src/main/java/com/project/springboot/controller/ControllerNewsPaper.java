@@ -31,11 +31,21 @@ public class ControllerNewsPaper {
         // Trả về template "listTodo.html"
         return "index";
     }
-    @GetMapping("addnewspaper")
+
+    @PostMapping("/addnewspaper")
     public String addNewspaper(Model model) {
         model.addAttribute("newspaper", new NewsPaper());
         return "addnewspaper";
     }
 
+    @PutMapping("/updatenewspaper")
+    public String updateNewspaper(Model model){
+        return "updateNewspaper";
+    }
+
+    @DeleteMapping("/deletenewspaper")
+    public String deleteNewspaper(Model model){
+        return "deletenewspaper";
+    }
 
 }

@@ -31,9 +31,20 @@ public class ControllerJournal {
         // Trả về template "listTodo.html"
         return "index";
     }
-    @GetMapping("addjournal")
+
+    @PostMapping ("/addjournal")
     public String addJournal(Model model) {
         model.addAttribute("journal", new Journal());
         return "addjournal";
+    }
+
+    @PutMapping("/updatejournal")
+    public String updateJournal(Model model){
+        return "updatejournal";
+    }
+
+    @DeleteMapping("/deletejournal")
+    public String deleteJournal(Model model){
+        return "deletejournal";
     }
 }
