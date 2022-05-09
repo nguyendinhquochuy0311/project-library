@@ -11,6 +11,7 @@
 <div>
    <table>
        <tr>
+           <th>Id</th>
            <th>Book Id</th>
           <th>Writer</th>
           <th>Book Name</th>
@@ -18,6 +19,7 @@
            <th>Number Of Release</th>
        </tr>
       <tr th:each="book : ${books}">
+           <td th:text="${book.getId()}">...</td>
            <td th:text="${book.getBookId()}">...</td>
            <td th:text="${book.getWriter()}">...</td>
            <td th:text="${book.getBookName()}">...</td>

@@ -1,7 +1,6 @@
 package com.project.springboot;
 
 import com.project.springboot.entity.Book;
-import com.project.springboot.entity.Manage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

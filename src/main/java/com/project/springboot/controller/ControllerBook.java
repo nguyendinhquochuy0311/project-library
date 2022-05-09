@@ -1,11 +1,14 @@
 package com.project.springboot.controller;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.project.springboot.BookRepository;
 import com.project.springboot.entity.Book;
 import com.project.springboot.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +36,16 @@ public class ControllerBook {
 
 
     @RequestMapping(value = "/findbybookname", method = RequestMethod.POST)
-    public String findByBook(@RequestBody String bookName, Model model) {
+    public String findByBook( @RequestBody String bookName, Model model){
+//        JSONObject jsonObject = new JSONObject(bookNameJson);
+//        String bookName = jsonObject.getString("bookName");
 
         List<Book> bookList = new ArrayList<>();
         if (bookName != null && !bookName.isEmpty()) {
             bookList = bookService.findBookByTitle(bookName);
         }
         model.addAttribute("books", bookList);
-        return "findbybookname";
+        return "index";
     }
 
 
