@@ -16,8 +16,8 @@
 <div>
     <table border="1">
         <div th:if= "${booklist != null}">
-            <form th:action="@{/findbybookname}"  method="post">
-                <input type="text" placeholder="Search book" />
+            <form th:action="@{/findbybookname}" th:object="${books}" method="post">
+                <input type="text" name=":books" placeholder="Search book" />
                 <input type="submit" value="Search" />
             </form>
             <a th:href="@{/addbook}">Add Book</a>

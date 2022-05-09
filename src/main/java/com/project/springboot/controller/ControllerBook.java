@@ -80,7 +80,7 @@ public class ControllerBook {
 
 
     @RequestMapping("/deletebook/{id}")
-    public String deleteProduct(@PathVariable(name = "id") int id) {
+    public String deleteBook(@PathVariable(name = "id") int id) {
         bookService.delete(id);
         return "redirect:/";
     }
