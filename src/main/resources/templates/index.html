@@ -2,10 +2,215 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Spring Boot</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap User Management Data Table</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Varela Round', sans-serif;
+            font-size: 13px;
+        }
+
+        .table-responsive {
+            margin: 30px 0;
+        }
+
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 15px;
+            background: #299be4;
+            color: #fff;
+            padding: 16px 30px;
+            margin: -20px -25px 10px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .table-title .btn {
+            color: #566787;
+            float: right;
+            font-size: 13px;
+            background: #fff;
+            border: none;
+            min-width: 50px;
+            border-radius: 2px;
+            border: none;
+            outline: none !important;
+            margin-left: 10px;
+        }
+
+        .table-title .btn:hover, .table-title .btn:focus {
+            color: #566787;
+            background: #f2f2f2;
+        }
+
+        .table-title .btn i {
+            float: left;
+            font-size: 21px;
+            margin-right: 5px;
+        }
+
+        .table-title .btn span {
+            float: left;
+            margin-top: 2px;
+        }
+
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        table.table tr th:first-child {
+            width: 60px;
+        }
+
+        table.table tr th:last-child {
+            width: 100px;
+        }
+
+        table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+
+        table.table-striped.table-hover tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table td:last-child i {
+            opacity: 0.9;
+            font-size: 22px;
+            margin: 0 5px;
+        }
+
+        table.table td a {
+            font-weight: bold;
+            color: #566787;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        table.table td a:hover {
+            color: #2196F3;
+        }
+
+        table.table td a.settings {
+            color: #2196F3;
+        }
+
+        table.table td a.delete {
+            color: #F44336;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        table.table .avatar {
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .status {
+            font-size: 30px;
+            margin: 2px 2px 0 0;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 10px;
+        }
+
+        .text-success {
+            color: #10c469;
+        }
+
+        .text-info {
+            color: #62c9e8;
+        }
+
+        .text-warning {
+            color: #FFC107;
+        }
+
+        .text-danger {
+            color: #ff5b5b;
+        }
+
+        .pagination {
+            float: right;
+            margin: 0 0 5px;
+        }
+
+        .pagination li a {
+            border: none;
+            font-size: 13px;
+            min-width: 30px;
+            min-height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 2px !important;
+            text-align: center;
+            padding: 0 6px;
+        }
+
+        .pagination li a:hover {
+            color: #666;
+        }
+
+        .pagination li.active a, .pagination li.active a.page-link {
+            background: #03A9F4;
+        }
+
+        .pagination li.active a:hover {
+            background: #0397d6;
+        }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
+
+        .hint-text {
+            float: left;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </head>
 <body>
 
@@ -13,92 +218,146 @@
 <a th:href="@{/journallist}">Journal List</a>
 <a th:href="@{/newspaperlist}">Newspaper List</a>
 
-<div>
-    <table border="1">
+<form action="/findbybookname" method="post">
+    <input type="search" name="bookName" placeholder="Search book"/>
+    <input type="submit" value="Search"/>
+</form>
+<div th:if="${booklist != null}">
 
-        <form action="#" th:action="@{/findbybookname}"  method="post">
-            <input type="search" th:name="bookName" placeholder="Search book"/>
-            <input type="submit" value="Search" />
-        </form>
-        <div th:if= "${booklist != null}">
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2>Book <b>List</b></h2>
+                        </div>
+                        <div class="col-sm-7">
+                            <a th:href="@{/addbook}" class="btn btn-secondary"><i class="material-icons">&#xE147;</i>
+                                <span>Add New Book</span></a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
 
-            <a th:href="@{/addbook}">Add Book</a>
-            <tr>
-                <th>Id</th>
-                <th>Book Id</th>
-                <th>Writer</th>
-                <th>Book Name</th>
-                <th>Number Of Pages</th>
-                <th>Number Of Release</th>
-            </tr>
-            <tr th:each="book : ${booklist}">
-                <td th:utext="${book.id}">...</td>
-                <td th:utext="${book.bookId}">...</td>
-                <td th:utext="${book.writer}">...</td>
-                <td th:utext="${book.bookName}">...</td>
-                <td th:utext="${book.numberOfPages}">...</td>
-                <td th:utext="${book.numberOfRelease}">...</td>
-                <td>
-                    <a th:href="@{'/editbook/'+${book.id}}">Edit</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a th:href="@{'/deletebook/'+${book.id}}">Delete</a>
-                </td>
-            </tr>
+                    <!--            <a th:href="@{/addbook}">Add Book</a>-->
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Book Id</th>
+                        <th>Writer</th>
+                        <th>Book Name</th>
+                        <th>Number Of Pages</th>
+                        <th>Number Of Release</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="book : ${booklist}">
+                        <td th:utext="${book.id}">...</td>
+                        <td th:utext="${book.bookId}">...</td>
+                        <td th:utext="${book.writer}">...</td>
+                        <td th:utext="${book.bookName}">...</td>
+                        <td th:utext="${book.numberOfPages}">...</td>
+                        <td th:utext="${book.numberOfRelease}">...</td>
+                        <td>
+                            <a th:href="@{'/editbook/'+${book.id}}">Edit</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a th:href="@{'/deletebook/'+${book.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </table>
         </div>
-    </table>
+    </div>
 </div>
 
-<div>
-    <table border="1">
-        <div  th:if= "${newspaperlist != null}">
-        <tr>
-            <th>Id</th>
-            <th>Newspaper Id</th>
-            <th>Release Day</th>
-            <th>Number Of Release</th>
-        </tr>
-            <a th:href="@{/addnewspaper}">Add Newspaper</a>
-        <tr th:each ="newspaper : ${newspaperlist}">
-            <td th:utext="${newspaper.id}">...</td>
-            <td th:utext="${newspaper.newsPaperId}">...</td>
-            <td th:utext="${newspaper.releaseDay}">...</td>
-            <td th:utext="${newspaper.numberOfRelease}">...</td>
-            <td>
-                <a th:href="@{'/editnewspaper/'+${newspaper.id}}">Edit</a>
-                &nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/deletenewspaper/'+${newspaper.id}}">Delete</a>
-            </td>
-        </tr>
+<div th:if="${newspaperlist != null}">
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2>Newspaper <b>List</b></h2>
+                        </div>
+                        <div class="col-sm-7">
+                            <a th:href="@{/addnewspaper}" class="btn btn-secondary"><i
+                                    class="material-icons">&#xE147;</i>
+                                <span>Add Newspaper</span></a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Newspaper Id</th>
+                        <th>Release Day</th>
+                        <th>Number Of Release</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="newspaper : ${newspaperlist}">
+                        <td th:utext="${newspaper.id}">...</td>
+                        <td th:utext="${newspaper.newsPaperId}">...</td>
+                        <td th:utext="${newspaper.releaseDay}">...</td>
+                        <td th:utext="${newspaper.numberOfRelease}">...</td>
+                        <td>
+                            <a th:href="@{'/editnewspaper/'+${newspaper.id}}">Edit</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a th:href="@{'/deletenewspaper/'+${newspaper.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </table>
+    </div>
 </div>
 
-<div>
-    <table border="1">
-        <div  th:if= "${journallist != null}">
-        <tr>
-            <th>Id</th>
-            <th>Journal Id</th>
-            <th>Release Number</th>
-            <th>Release Month</th>
-            <th>Number Of Release</th>
-        </tr>
-            <a th:href="@{/addjournal}">Add Journal</a>
-        <tr th:each ="journal : ${journallist}">
-            <td th:utext="${journal.id}">...</td>
-            <td th:utext="${journal.journalId}">...</td>
-            <td th:utext="${journal.releaseNumber}">...</td>
-            <td th:utext="${journal.releaseMonth}">...</td>
-            <td th:utext="${journal.numberOfRelease}">...</td>
-            <td>
-                <a th:href="@{'/editjournal/'+${journal.id}}">Edit</a>
-                &nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/deletejournal/'+${journal.id}}">Delete</a>
-            </td>
-        </tr>
+<div th:if="${journallist != null}">
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2>Journal <b>List</b></h2>
+                        </div>
+                        <div class="col-sm-7">
+                            <a th:href="@{/addjournal}" class="btn btn-secondary"><i class="material-icons">&#xE147;</i>
+                                <span>Add News Journal</span></a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Journal Id</th>
+                        <th>Release Number</th>
+                        <th>Release Month</th>
+                        <th>Number Of Release</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="journal : ${journallist}">
+                        <td th:utext="${journal.id}">...</td>
+                        <td th:utext="${journal.journalId}">...</td>
+                        <td th:utext="${journal.releaseNumber}">...</td>
+                        <td th:utext="${journal.releaseMonth}">...</td>
+                        <td th:utext="${journal.numberOfRelease}">...</td>
+                        <td>
+                            <a th:href="@{'/editjournal/'+${journal.id}}">Edit</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a th:href="@{'/deletejournal/'+${journal.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </table>
+    </div>
 </div>
-
+</table>
+</div>
+</div>
+</div>
 </body>
 </html>
