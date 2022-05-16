@@ -15,11 +15,13 @@
 
 <div>
     <table border="1">
+
+        <form action="#" th:action="@{/findbybookname}"  method="post">
+            <input type="search" th:name="bookName" placeholder="Search book"/>
+            <input type="submit" value="Search" />
+        </form>
         <div th:if= "${booklist != null}">
-            <form th:action="@{/findbybookname}"  method="post">
-                <input type="text" th:name="${books.bookName}" placeholder="Search book"/>
-                <input type="submit" value="Search" />
-            </form>
+
             <a th:href="@{/addbook}">Add Book</a>
             <tr>
                 <th>Id</th>

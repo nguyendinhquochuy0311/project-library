@@ -18,14 +18,18 @@
            <th>Number Of Pages</th>
            <th>Number Of Release</th>
        </tr>
-      <tr th:each="book : ${books}">
-           <td th:text="${book.getId()}">...</td>
-           <td th:text="${book.getBookId()}">...</td>
-           <td th:text="${book.getWriter()}">...</td>
-           <td th:text="${book.getBookName()}">...</td>
-          <td th:text="${book.getNumberOfPages()}">...</td>
-           <td th:text="${book.getNumberOfRelease()}">...</td>
-
+       <tr th:each="book : ${books}">
+           <td th:utext="${book.id}">...</td>
+           <td th:utext="${book.getBookId()}">...</td>
+           <td th:utext="${book.getWriter()}">...</td>
+           <td th:utext="${book.getBookName()}">...</td>
+           <td th:utext="${book.getNumberOfRelease()}">...</td>
+           <td th:utext="${book.getNumberOfPages()}">...</td>
+           <td>
+               <a th:href="@{'/editbook/'+${book.getId()}}">Edit</a>
+               &nbsp;&nbsp;&nbsp;
+               <a th:href="@{'/deletebook/'+${book.getId()}}">Delete</a>
+           </td>
        </tr>
    </table>
 </div>

@@ -1,6 +1,9 @@
 package com.project.springboot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +11,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "book")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Data
+@Getter
+@Setter
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -88,5 +94,9 @@ public class Book implements Serializable {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

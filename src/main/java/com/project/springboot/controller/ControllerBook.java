@@ -1,16 +1,15 @@
 package com.project.springboot.controller;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.project.springboot.BookRepository;
+import com.project.springboot.DTO.BookRequestDTO;
 import com.project.springboot.entity.Book;
 import com.project.springboot.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,30 +33,39 @@ public class ControllerBook {
         return "index";
     }
 
-
     @RequestMapping(value = "/findbybookname", method = RequestMethod.POST)
-    public String findByBook( @RequestBody String bookName, Model model){
-//        JSONObject jsonObject = new JSONObject(bookNameJson);
-//        String bookName = jsonObject.getString("bookName");
+    public String findByBook(@ModelAttribute("bookRequest") BookRequestDTO bookRequestDTO, BindingResult result, Model model) {
 
+        if(result.hasErrors()){
+            return "index";
+        }
         List<Book> bookList = new ArrayList<>();
-        if (bookName != null && !bookName.isEmpty()) {
-            bookList = bookService.findBookByTitle(bookName);
+        if (bookRequestDTO != null && !bookRequestDTO.inValid()) {
+            bookList = bookService.findBookByTitle(bookRequestDTO.getName());
         }
-        model.addAttribute("books", bookList);
-        return "index";
+        if (bookList.isEmpty()){
+            bookList = bookService.findWriter(bookRequestDTO.getName());
+        }
+        model.addAttribute("books",bookList);
+
+        return "findbybookname";
     }
 
 
-    @RequestMapping(value = "/findwriter", method = RequestMethod.POST)
-    public String getByWriter(@RequestBody String writer, Model model) {
-        List<Book> writerList = new ArrayList<>();
-        if (writer != null && !writer.isEmpty()) {
-            writerList = bookService.findWriter(writer);
-        }
-        model.addAttribute("writer", writerList);
-        return "findwriter";
-    }
+//    @RequestMapping(value = "/findwriter", method = RequestMethod.POST)
+//    public String getByWriter(@ModelAttribute("bookRequest") BookRequestWriterDTO bookRequestWriterDTO, BindingResult result, Model model) {
+//        if(result.hasErrors()){
+//            return "index";
+//        }
+//
+//        List<Book> books = new ArrayList<>();
+//        if (bookRequestWriterDTO != null && !bookRequestWriterDTO.inValid()) {
+//            books = bookService.findWriter(bookRequestWriterDTO.getWriter());
+//        }
+//
+//        model.addAttribute("books", books);
+//        return "findbybookname;";
+//    }
 
 
     @RequestMapping("/addbook")
@@ -78,7 +86,6 @@ public class ControllerBook {
         ModelAndView mav = new ModelAndView("editbook");
         Book book = bookService.get(id);
         mav.addObject("book", book);
-
         return mav;
     }
 
