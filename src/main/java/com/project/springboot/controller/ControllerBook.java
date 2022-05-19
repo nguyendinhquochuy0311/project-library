@@ -70,8 +70,6 @@ public class ControllerBook {
         return mav;
     }
 
-
-
     @RequestMapping("/deletebook/{id}")
     public String deleteBook(@PathVariable(name = "id") int id) {
         bookService.delete(id);
