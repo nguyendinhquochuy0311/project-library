@@ -213,6 +213,13 @@
     </script>
 </head>
 <body>
+<a th:href="@{/booklist}">Book List</a>
+<a th:href="@{/journallist}">Journal List</a>
+<a th:href="@{/newspaperlist}">Newspaper List</a>
+<form action="/findbybookname" method="post">
+    <input type="search" name="bookName" placeholder="Search book"/>
+    <input type="submit" value="Search"/>
+</form>
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
