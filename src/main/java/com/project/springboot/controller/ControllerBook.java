@@ -25,9 +25,7 @@ public class ControllerBook {
 
     @GetMapping("/booklist")
     public String bookList(Model model) {
-        // Trả về đối tượng todoList.
         model.addAttribute("booklist", bookRepository.findAll());
-        // Trả về template "listTodo.html"
         return "index";
     }
 
